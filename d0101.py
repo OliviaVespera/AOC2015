@@ -1,17 +1,16 @@
 LEVEL_MAP = {"(":1, ")": -1}
 
-def read_file(file_name) -> str:
+def read_file(file_name: str) -> str:
     with open(file_name) as f:
         instruction = f.read()
     return instruction
 
-def parse_instruction(instr) -> tuple[int, int]:
-    level = 0
-    basement = 0
+def parse_instruction(instr: str) -> tuple[int, int]:
+    level: int = 0
+    basement: int = 0
     for i, j in enumerate(instr, start=1):
         level += LEVEL_MAP[j]
-        if level < 0 and basement == 0:
-            basement = i
+        basement = i if level < 0 and basement == 0 else basement
     return level, basement
 
 def main() -> None:
